@@ -4,14 +4,18 @@ erase things, and clear the screen. Exciting things, all!*/
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Random;
+
 import javax.swing.*;
 
 public class DrawGUI extends JPanel {
 //Initializing the buttons for the program
-	private JRadioButton pen_1, pen_2, pen_3, eraser;
+	private JRadioButton pen_1, pen_2, pen_3, pen_4, pen_5, eraser;
 	private JButton clearButton;
 //Initializing the color variable the program will use for the background and changing the color of the pens
 	private static Color currentColor = Color.PINK;
+	private static Color randomColor = Color.CYAN;
+	private static boolean isRandomSelected = false;
 //Defining the colors that the pens can be
 	private final static Color PURPLE = new Color(204, 0, 204);
 	private final static Color FOREST = new Color(0, 153, 0);
@@ -34,7 +38,8 @@ public class DrawGUI extends JPanel {
 //		mainPanel.setBackground(Color.GRAY);
 //		canvas.setLayout(new BorderLayout());
 //		canvas.add(mainPanel, BorderLayout.PAGE_END);
-
+//		drawPanel.setLayout(new BorderLayout());
+//		drawPanel.add(drawPanel, BorderLayout.PAGE_END);
 //		drawPanel.setBackground(Color.GRAY);
 //		canvas.setLayout(new BorderLayout());
 //		canvas.add(drawPanel, BorderLayout.PAGE_END);
@@ -48,6 +53,12 @@ public class DrawGUI extends JPanel {
 		pen_3 = new JRadioButton("Sunny-D");
 		drawPanel.add(pen_3);
 		pen_3.addActionListener(new ToolListener());
+		pen_4 = new JRadioButton("A random color");
+		drawPanel.add(pen_4);
+		pen_4.addActionListener(new ToolListener());
+		pen_5 = new JRadioButton("???");
+		drawPanel.add(pen_5);
+		pen_5.addActionListener(new ToolListener());
 		//The eraser isn't functionally different from the other pens--it's just the same color as the background
 		eraser = new JRadioButton("Eraser");
 		drawPanel.add(eraser);
@@ -60,6 +71,8 @@ public class DrawGUI extends JPanel {
 		myGroup.add(pen_1);
 		myGroup.add(pen_2);
 		myGroup.add(pen_3);
+		myGroup.add(pen_4);
+		myGroup.add(pen_5);
 		myGroup.add(eraser);
 		
 		this.add(drawPanel);
@@ -71,7 +84,24 @@ public class DrawGUI extends JPanel {
 	
 	//getter to retrive what color of pen the user has selected
 	public static Color getCurrentColor() {
-		return currentColor;
+		if (isRandomSelected == true) {
+			currentColor = getRandomColor();
+		} return currentColor;
+	}
+	//getter to retrieve a random color
+	public static Color getRandomColor() {
+		Random generator = new Random();
+		int redInt = 0;
+		int greenInt = 0;
+		int blueInt = 0;
+		
+		redInt = generator.nextInt(0 + 255) + 0;
+		greenInt = generator.nextInt(0 + 255) + 0;
+		blueInt = generator.nextInt(0 + 255) + 0;
+		
+		randomColor = new Color(redInt, greenInt, blueInt);
+		
+		return randomColor;
 	}
 
 	//method to draw the ovals where and with what color myPoints says to
@@ -101,7 +131,7 @@ public class DrawGUI extends JPanel {
 		@Override
 		public void mouseMoved(MouseEvent event) {
 			if(canDraw) {
-				ColoredPoint point = new ColoredPoint(event.getPoint(), currentColor);
+				ColoredPoint point = new ColoredPoint(event.getPoint(), getCurrentColor());
 				myPoints.add(point);
 			}
 			repaint();
@@ -118,12 +148,20 @@ public class DrawGUI extends JPanel {
 				currentColor = FOREST;
 			} else if (pen_3.isSelected()) {
 				currentColor = SUNNYD;
+			} else if (pen_4.isSelected()) {
+				currentColor = getRandomColor();
 			} else if (eraser.isSelected()) {
 				currentColor = Color.PINK;
-			} //this is seperate because clearing the canvas isn't related which other pens are selected
+			} //because it's a special snowflake, the fifth pen gets some logic of its own
+			if (pen_5.isSelected()) {
+				isRandomSelected = true;
+			} else {
+				isRandomSelected = false;
+			}
+			//this is seperate because clearing the canvas isn't related which other pens are selected
 			if (arg0.getSource() == clearButton) {
 				myPoints.clear();
 			}
 		}
-	}
+	}	
 }
