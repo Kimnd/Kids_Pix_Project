@@ -19,7 +19,7 @@ public class DrawGUI extends JPanel {
 //Defining the diameter of the pen
 	private final static int DIAMETER = 12;
 //Initializing the boolean to tell us if the user can draw or not
-	private static boolean canDraw;
+	protected static boolean canDraw;
 //Initializing the ArrayList of ColoredPoint objects that will allow the program to keep track of where and what color the pens were 
 	private ArrayList<ColoredPoint> myPoints;
 
@@ -66,16 +66,7 @@ public class DrawGUI extends JPanel {
 //		drawPanel.setLayout(new BorderLayout());
 		this.addMouseMotionListener(new CanvasListener());
 		this.addMouseListener(new CanvasListener());
-		canDraw = false;
-	}
-
-	//getters and setters for canIDraw, the variable that specifies whether or not a user can draw on the canvas
-	public static boolean getCanDraw () {
-		return canDraw;
-	}
-
-	public static void setCanDraw (boolean canIDraw) {
-		canDraw = canIDraw;
+//		canDraw = false;
 	}
 	
 	//getter to retrive what color of pen the user has selected
@@ -134,20 +125,5 @@ public class DrawGUI extends JPanel {
 				myPoints.clear();
 			}
 		}
-	}
-	
-	public static void main(String args[]) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				//make a JFrame object to hold the DrawGUI and set its size and what-not
-				JFrame frame = new JFrame("Welcome to Drawing!");
-				frame.setSize(600, 600);
-				// create an object of your class
-				DrawGUI panel = new DrawGUI();
-				frame.getContentPane().add(panel);
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setVisible(true);
-			}
-		});
 	}
 }
