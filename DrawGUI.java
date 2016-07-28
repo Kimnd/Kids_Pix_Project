@@ -1,4 +1,4 @@
-/*Project by: Ryan Lim,	Ethan <INSERT NAME HERE>, and Marion Fiona Gallagher.
+/*Project by: Ryan Lim,	Kyaw Tun, and Marion Fiona Gallagher.
 A drawing program that lets the user draw in three colors,
 erase things, and clear the screen. Exciting things, all!*/
 import java.awt.*;
