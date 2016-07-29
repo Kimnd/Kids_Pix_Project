@@ -33,16 +33,6 @@ public class DrawGUI extends JPanel {
 		
 		JPanel drawPanel = new JPanel();
 		ButtonGroup myGroup = new ButtonGroup();
-//		Container canvas = getRootPane();
-//		JPanel mainPanel = new JPanel();
-//		mainPanel.setBackground(Color.GRAY);
-//		canvas.setLayout(new BorderLayout());
-//		canvas.add(mainPanel, BorderLayout.PAGE_END);
-//		drawPanel.setLayout(new BorderLayout());
-//		drawPanel.add(drawPanel, BorderLayout.PAGE_END);
-//		drawPanel.setBackground(Color.GRAY);
-//		canvas.setLayout(new BorderLayout());
-//		canvas.add(drawPanel, BorderLayout.PAGE_END);
 		//Making the pen objects, and giving them listeners and text
 		pen_1 = new JRadioButton("Purple");
 		drawPanel.add(pen_1);
@@ -76,10 +66,10 @@ public class DrawGUI extends JPanel {
 		myGroup.add(eraser);
 		
 		this.add(drawPanel);
-//		drawPanel.setLayout(new BorderLayout());
+
 		this.addMouseMotionListener(new CanvasListener());
 		this.addMouseListener(new CanvasListener());
-//		canDraw = false;
+
 	}
 	
 	//getter to retrive what color of pen the user has selected
